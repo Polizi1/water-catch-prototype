@@ -1,0 +1,2035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clean Water Catch | charity: water</title>
+
+<style>
+
+/* =========================
+   GENERAL PAGE
+========================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --yellow: #ffd22e;
+    --yellow-dark: #f2b900;
+    --navy: #12345b;
+    --blue: #24a9e8;
+    --light-blue: #c9efff;
+    --water-blue: #159bd6;
+    --white: #ffffff;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5fafc;
+    color: var(--navy);
+    min-height: 100vh;
+}
+
+.page {
+    width: min(1250px, 96%);
+    margin: 18px auto 35px;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    background: white;
+    border-radius: 20px 20px 0 0;
+    padding: 20px 28px 17px;
+    box-shadow: 0 5px 18px rgba(18, 52, 91, 0.08);
+    position: relative;
+    z-index: 10;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.brand-icon {
+    width: 48px;
+    height: 52px;
+    background: var(--yellow);
+    border-radius: 9px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.brand-text {
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.tagline {
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    color: #58758c;
+    margin-top: 3px;
+}
+
+
+/* =========================
+   SCORE / TIME / LIVES
+========================= */
+
+.stats {
+    display: flex;
+    gap: 15px;
+}
+
+.stat {
+    min-width: 115px;
+    background: #edf7fb;
+    border-radius: 17px;
+    padding: 10px 15px;
+    text-align: center;
+}
+
+.stat-label {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.stat-value {
+    font-size: 23px;
+    font-weight: 900;
+    margin-top: 4px;
+}
+.heart,
+.empty-heart {
+    font-family: "Segoe UI Emoji", "Apple Color Emoji", sans-serif;
+    font-size: 21px;
+    letter-spacing: 2px;
+}
+
+.heart {
+    color: #ff5964;
+}
+
+.empty-heart {
+    color: #ccd7dc;
+}
+
+.lives {
+    letter-spacing: 2px;
+}
+
+
+/* =========================
+   PROGRESS BAR
+========================= */
+
+.progress-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 18px;
+}
+
+.progress-title {
+    font-size: 14px;
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+.progress-container {
+    flex: 1;
+    height: 15px;
+    background: #dcebf2;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: var(--yellow);
+    border-radius: 20px;
+    transition: width 0.2s ease;
+}
+
+.progress-number {
+    min-width: 70px;
+    font-size: 14px;
+    font-weight: 900;
+}
+
+
+/* =========================
+   GAME AREA
+========================= */
+
+.game {
+    height: 620px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 0 20px 20px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #61c8f1 0%,
+            #a9e7fa 48%,
+            #dff8ff 49%,
+            #70c8eb 50%,
+            #159bd6 100%
+        );
+
+    box-shadow: 0 7px 22px rgba(18, 52, 91, 0.13);
+}
+
+
+/* =========================
+   CLOUDS
+========================= */
+
+.cloud {
+    position: absolute;
+    background: white;
+    border-radius: 100px;
+    opacity: 0.75;
+}
+
+.cloud::before,
+.cloud::after {
+    content: "";
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+}
+
+.cloud::before {
+    width: 65%;
+    height: 130%;
+    left: 15%;
+    top: -65%;
+}
+
+.cloud::after {
+    width: 45%;
+    height: 100%;
+    right: 8%;
+    top: -45%;
+}
+
+.cloud-one {
+    width: 180px;
+    height: 45px;
+    top: 80px;
+    left: -20px;
+}
+
+.cloud-two {
+    width: 145px;
+    height: 36px;
+    top: 155px;
+    right: 25px;
+}
+
+.cloud-three {
+    width: 120px;
+    height: 30px;
+    top: 55px;
+    right: 28%;
+}
+
+
+/* =========================
+   MOUNTAINS
+========================= */
+
+.mountains {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 145px;
+    height: 270px;
+}
+
+.mountain {
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 0;
+
+    border-left: 190px solid transparent;
+    border-right: 190px solid transparent;
+    border-bottom: 220px solid #6db9df;
+}
+
+.mountain-one {
+    left: -80px;
+}
+
+.mountain-two {
+    left: 230px;
+    transform: scale(0.85);
+}
+
+.mountain-three {
+    right: 100px;
+    transform: scale(1.05);
+}
+
+.mountain-four {
+    right: -160px;
+    transform: scale(0.8);
+}
+
+.front-mountain {
+    position: absolute;
+    bottom: -5px;
+    width: 0;
+    height: 0;
+
+    border-left: 230px solid transparent;
+    border-right: 230px solid transparent;
+    border-bottom: 175px solid #55aee0;
+}
+
+.front-one {
+    left: 40px;
+}
+
+.front-two {
+    left: 430px;
+    transform: scale(0.75);
+}
+
+.front-three {
+    right: -20px;
+    transform: scale(0.9);
+}
+
+
+/* =========================
+   GREEN LAND
+========================= */
+
+.land {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 95px;
+    height: 135px;
+
+    background: #55b77b;
+
+    clip-path: polygon(
+        0 65%,
+        10% 42%,
+        20% 55%,
+        31% 30%,
+        43% 55%,
+        55% 35%,
+        67% 57%,
+        79% 32%,
+        90% 54%,
+        100% 38%,
+        100% 100%,
+        0 100%
+    );
+}
+
+.shore {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 70px;
+    height: 75px;
+    background: #48aa70;
+    border-radius: 50% 50% 0 0;
+}
+
+.water {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 115px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #4ac7ef,
+            #149bd5
+        );
+}
+
+
+/* =========================
+   WATER RIPPLE DETAILS
+========================= */
+
+.ripple {
+    position: absolute;
+    border: 2px solid rgba(255,255,255,0.35);
+    border-radius: 50%;
+    height: 22px;
+}
+
+.ripple-one {
+    width: 180px;
+    bottom: 82px;
+    left: 20%;
+}
+
+.ripple-two {
+    width: 230px;
+    bottom: 91px;
+    right: 15%;
+}
+
+.ripple-three {
+    width: 120px;
+    bottom: 75px;
+    left: 53%;
+}
+
+
+/* =========================
+   WATER DROP EMOJI
+========================= */
+
+.water-drop {
+    position: absolute;
+
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 45px;
+    line-height: 1;
+
+    z-index: 5;
+
+    background: none;
+    border: none;
+    box-shadow: none;
+
+    transform: translateY(0);
+
+    user-select: none;
+}
+
+
+/* =========================
+   HAZARD DROP EMOJI
+========================= */
+.hazard-drop {
+    position: absolute;
+
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 45px;
+    line-height: 1;
+
+    z-index: 5;
+
+    background: none;
+    border: none;
+    box-shadow: none;
+
+    transform: translateY(0);
+
+    user-select: none;
+}
+
+.hazard-water {
+    filter: grayscale(1) brightness(0.55);
+    font-size: 45px;
+    line-height: 1;
+}
+.hazard-symbol {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    font-size: 24px;
+    line-height: 1;
+
+    color: #ffd22e;
+
+    z-index: 2;
+}
+
+/* =========================
+   CATCH BASKET
+========================= */
+
+.basket {
+    position: absolute;
+
+    width: 190px;
+    height: 100px;
+
+    bottom: 73px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    background:
+        linear-gradient(
+            #ffdf3f,
+            #ffc21b
+        );
+
+    border: 5px solid #f3b800;
+
+    border-radius:
+        12px
+        12px
+        32px
+        32px;
+
+    box-shadow:
+        0 8px 12px rgba(107, 86, 0, 0.25);
+
+    z-index: 7;
+
+    transition: left 0.08s linear;
+}
+
+
+/* basket top */
+
+.basket::before {
+    content: "";
+
+    position: absolute;
+
+    left: -13px;
+    right: -13px;
+
+    top: -12px;
+
+    height: 26px;
+
+    background: #ffdc32;
+
+    border: 5px solid #f3b800;
+
+    border-radius: 20px;
+}
+
+
+/* CATCH TEXT */
+
+.basket-label {
+    position: absolute;
+
+    left: 0;
+    top: 29px;
+
+    width: 100%;
+
+    text-align: center;
+
+    color: var(--navy);
+
+    font-size: 22px;
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+/* basket handle */
+
+.basket-handle {
+    position: absolute;
+
+    left: 57px;
+    top: -22px;
+
+    width: 75px;
+    height: 35px;
+
+    border: 7px solid #f3b800;
+    border-bottom: 0;
+
+    border-radius:
+        40px
+        40px
+        0
+        0;
+}
+
+
+/* =========================
+   INSTRUCTIONS
+========================= */
+
+.instructions {
+    position: absolute;
+
+    left: 18px;
+    bottom: 17px;
+
+    z-index: 8;
+
+    color: white;
+
+    background: rgba(18,52,91,0.68);
+
+    padding: 12px 18px;
+
+    border-radius: 14px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    backdrop-filter: blur(5px);
+}
+
+
+/* =========================
+   FEEDBACK MESSAGE
+========================= */
+
+.message {
+    position: absolute;
+
+    z-index: 9;
+
+    top: 22px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    background: white;
+
+    padding: 10px 20px;
+
+    border-radius: 25px;
+
+    font-weight: 900;
+
+    box-shadow:
+        0 5px 15px rgba(18,52,91,0.15);
+
+    opacity: 0;
+
+    transition: opacity 0.25s;
+}
+
+.message.show {
+    opacity: 1;
+}
+
+
+/* =========================
+   START / END SCREEN
+========================= */
+
+.overlay {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 20;
+
+    background: rgba(255,255,255,0.91);
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 25px;
+}
+
+.card {
+    width: min(520px, 92%);
+
+    background: white;
+
+    border-radius: 25px;
+
+    padding: 38px;
+
+    text-align: center;
+
+    box-shadow:
+        0 18px 50px rgba(18,52,91,0.18);
+}
+
+.card-logo {
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 2px;
+
+    margin-bottom: 15px;
+}
+
+.card h1 {
+    font-size: 40px;
+    line-height: 1.05;
+
+    margin-bottom: 16px;
+}
+
+.card h1 span {
+    font-size: 49px;
+}
+
+.card p {
+    font-size: 16px;
+    line-height: 1.6;
+
+    color: #49677f;
+
+    margin-bottom: 23px;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.button {
+    border: none;
+
+    background: var(--yellow);
+
+    color: var(--navy);
+
+    font-size: 17px;
+
+    font-weight: 900;
+
+    padding: 15px 43px;
+
+    border-radius: 30px;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 0 #e2ad00;
+
+    transition: 0.15s;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+}
+
+.button:active {
+    transform: translateY(2px);
+
+    box-shadow: 0 2px 0 #e2ad00;
+}
+
+.subtext {
+    margin-top: 17px;
+
+    font-size: 12px;
+
+    color: #55738c;
+}
+
+
+/* =========================
+   INFORMATION CARDS
+========================= */
+
+.info-section {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 16px;
+
+    margin-top: 18px;
+}
+
+.info-card {
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 20px;
+
+    text-align: center;
+
+    box-shadow:
+        0 5px 18px rgba(18,52,91,0.07);
+}
+
+.info-card h3 {
+    font-size: 15px;
+
+    margin-bottom: 8px;
+}
+
+.info-card p {
+    font-size: 13px;
+
+    color: #58758a;
+
+    line-height: 1.5;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 800px) {
+
+    .topbar {
+        align-items: flex-start;
+    }
+
+    .brand-text {
+        font-size: 22px;
+    }
+
+    .tagline {
+        display: none;
+    }
+
+    .stats {
+        gap: 6px;
+    }
+
+    .stat {
+        min-width: 78px;
+        padding: 9px 8px;
+    }
+
+    .stat-value {
+        font-size: 18px;
+    }
+
+    .progress-row {
+        gap: 8px;
+    }
+
+    .progress-title {
+        font-size: 11px;
+    }
+
+    .game {
+        height: 590px;
+    }
+
+    .basket {
+        width: 150px;
+        height: 85px;
+    }
+
+    .basket-label {
+        font-size: 18px;
+        top: 26px;
+    }
+
+    .basket-handle {
+        left: 45px;
+        width: 60px;
+    }
+
+    .water-drop,
+    .hazard-drop {
+        width: 42px;
+        height: 42px;
+        font-size: 36px;
+    }
+
+    .instructions {
+        left: 8px;
+        right: 8px;
+        text-align: center;
+        font-size: 10px;
+    }
+
+    .info-section {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================
+   PHONE
+========================= */
+
+@media (max-width: 520px) {
+
+    .page {
+        width: 100%;
+        margin: 0;
+    }
+
+    .header {
+        border-radius: 0;
+        padding: 13px 10px;
+    }
+
+    .brand-icon {
+        width: 37px;
+        height: 42px;
+        font-size: 20px;
+    }
+
+    .brand-text {
+        font-size: 17px;
+    }
+
+    .stats {
+        gap: 3px;
+    }
+
+    .stat {
+        min-width: 62px;
+    }
+
+    .stat-label {
+        font-size: 9px;
+    }
+
+    .stat-value {
+        font-size: 15px;
+    }
+
+    .progress-title {
+        display: none;
+    }
+
+    .game {
+        height: 570px;
+        border-radius: 0;
+    }
+
+    .card {
+        padding: 30px 22px;
+    }
+
+    .card h1 {
+        font-size: 32px;
+    }
+
+    .card h1 span {
+        font-size: 39px;
+    }
+
+    .card p {
+        font-size: 14px;
+    }
+
+    .basket {
+        width: 135px;
+        height: 78px;
+    }
+
+    .basket-label {
+        font-size: 16px;
+    }
+
+    .basket-handle {
+        left: 40px;
+        width: 55px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="page">
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="header">
+
+        <div class="topbar">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    💧
+                </div>
+
+                <div>
+
+                    <div class="brand-text">
+                        CHARITY: WATER
+                    </div>
+
+                    <div class="tagline">
+                        EVERY DROP COUNTS
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="stats">
+
+                <div class="stat">
+
+                    <div class="stat-label">
+                        SCORE
+                    </div>
+
+                    <div class="stat-value">
+                        ⭐ <span id="score">0</span>
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-label">
+                        TIME
+                    </div>
+
+                    <div class="stat-value">
+                        ◷ <span id="time">30</span>s
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-label">
+                        LIVES
+                    </div>
+
+                    <div
+                        class="stat-value lives"
+                        id="lives">
+                        ♥ ♥ ♥
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROGRESS -->
+
+        <div class="progress-row">
+
+            <div class="progress-title">
+                PROGRESS TO 100 POINTS
+            </div>
+
+            <div class="progress-container">
+
+                <div
+                    class="progress-bar"
+                    id="progress">
+                </div>
+
+            </div>
+
+            <div class="progress-number">
+
+                <span id="progressScore">0</span>
+                / 100
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         GAME
+    ========================== -->
+
+    <main
+        class="game"
+        id="game">
+
+
+        <!-- CLOUDS -->
+
+        <div class="cloud cloud-one"></div>
+        <div class="cloud cloud-two"></div>
+        <div class="cloud cloud-three"></div>
+
+
+        <!-- BACK MOUNTAINS -->
+
+        <div class="mountains">
+
+            <div class="mountain mountain-one"></div>
+
+            <div class="mountain mountain-two"></div>
+
+            <div class="mountain mountain-three"></div>
+
+            <div class="mountain mountain-four"></div>
+
+
+            <div class="front-mountain front-one"></div>
+
+            <div class="front-mountain front-two"></div>
+
+            <div class="front-mountain front-three"></div>
+
+        </div>
+
+
+        <!-- LAND -->
+
+        <div class="land"></div>
+
+        <div class="shore"></div>
+
+        <div class="water"></div>
+
+
+        <!-- WATER RIPPLE DETAILS -->
+
+        <div class="ripple ripple-one"></div>
+
+        <div class="ripple ripple-two"></div>
+
+        <div class="ripple ripple-three"></div>
+
+
+        <!-- FEEDBACK -->
+
+        <div
+            class="message"
+            id="message">
+            Clean water collected! 💧
+        </div>
+
+
+        <!-- INSTRUCTIONS -->
+
+        <div class="instructions">
+
+            ← → Move basket
+            &nbsp; | &nbsp;
+            🖱 Mouse / Touch
+            &nbsp; | &nbsp;
+            Catch blue drops
+            &nbsp; | &nbsp;
+            Avoid ☢ hazards
+
+        </div>
+
+
+        <!-- BASKET -->
+
+        <div
+            class="basket"
+            id="basket">
+
+            <div class="basket-handle"></div>
+
+            <div class="basket-label">
+                CATCH
+            </div>
+
+        </div>
+
+
+        <!-- START SCREEN -->
+
+        <div
+            class="overlay"
+            id="overlay">
+
+            <div class="card">
+
+                <div class="card-logo">
+                    CHARITY: WATER
+                </div>
+
+
+                <h1>
+
+                    💧
+
+                    <br>
+
+                    <span>
+                        CLEAN WATER<br>
+                        CATCH
+                    </span>
+
+                </h1>
+
+
+                <p>
+
+                    Catch the clean water droplets,
+                    avoid the polluted droplets with
+                    hazard symbols, and help bring
+                    clean water to communities
+                    around the world.
+
+                </p>
+
+
+                <button
+                    class="button"
+                    id="startButton">
+
+                    START GAME
+
+                </button>
+
+
+                <div class="subtext">
+
+                    Catch 10 clean droplets
+                    to reach 100 points!
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         INFO CARDS
+========================== -->
+
+    <section class="info-section">
+
+        <div class="info-card">
+
+            <h3>
+                💧 Clean Drops
+            </h3>
+
+            <p>
+                Catch the blue water droplets
+                to earn <b>10 points</b>.
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <h3>
+                ☢ Hazard Drops
+            </h3>
+
+            <p>
+                Avoid the dark polluted
+                droplets. Catching one
+                costs you <b>1 life</b>.
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <h3>
+                🌎 Goal
+            </h3>
+
+            <p>
+                Reach <b>100 points</b>
+                before the 30-second
+                timer runs out.
+            </p>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script>
+
+/* =========================
+   GAME VARIABLES
+========================= */
+
+const game =
+    document.getElementById("game");
+
+const basket =
+    document.getElementById("basket");
+
+const overlay =
+    document.getElementById("overlay");
+
+const startButton =
+    document.getElementById("startButton");
+
+const scoreElement =
+    document.getElementById("score");
+
+const timeElement =
+    document.getElementById("time");
+
+const livesElement =
+    document.getElementById("lives");
+
+const progress =
+    document.getElementById("progress");
+
+const progressScore =
+    document.getElementById("progressScore");
+
+const message =
+    document.getElementById("message");
+
+
+let score = 0;
+
+let lives = 3;
+
+let time = 30;
+
+let running = false;
+
+let basketPosition = 50;
+
+let timer;
+
+let spawnTimer;
+
+let drops = [];
+
+
+/* =========================
+   UPDATE HUD
+========================= */
+
+function updateHUD() {
+
+    scoreElement.textContent =
+        score;
+
+    progressScore.textContent =
+        score;
+
+    progress.style.width =
+        Math.min(score, 100) + "%";
+
+    timeElement.textContent =
+        time;
+
+
+    let hearts = "";
+
+    for (let i = 0; i < 3; i++) {
+
+        if (i < lives) {
+
+           hearts +=
+    '<span class="heart">❤️</span>';
+
+        } else {
+
+           hearts +=
+    '<span class="empty-heart">♡</span>';
+
+        }
+
+    }
+
+    livesElement.innerHTML =
+        hearts;
+}
+
+
+/* =========================
+   FEEDBACK MESSAGE
+========================= */
+
+function showMessage(text) {
+
+    message.textContent =
+        text;
+
+    message.classList.add("show");
+
+    setTimeout(() => {
+
+        message.classList.remove("show");
+
+    }, 700);
+}
+
+
+/* =========================
+   MOVE BASKET
+========================= */
+
+function moveBasket(mouseX) {
+
+    const gameRect =
+        game.getBoundingClientRect();
+
+    const basketWidth =
+        basket.offsetWidth;
+
+
+    let position =
+        mouseX - gameRect.left;
+
+
+    position =
+        Math.max(
+            basketWidth / 2,
+            Math.min(
+                gameRect.width -
+                basketWidth / 2,
+                position
+            )
+        );
+
+
+    basketPosition =
+        (position / gameRect.width) * 100;
+
+
+    basket.style.left =
+        basketPosition + "%";
+}
+
+
+/* =========================
+   MOUSE
+========================= */
+
+game.addEventListener(
+    "mousemove",
+    function(event) {
+
+        if (running) {
+
+            moveBasket(event.clientX);
+
+        }
+
+    }
+);
+
+
+/* =========================
+   TOUCH
+========================= */
+
+game.addEventListener(
+    "touchmove",
+    function(event) {
+
+        if (running) {
+
+            event.preventDefault();
+
+            moveBasket(
+                event.touches[0].clientX
+            );
+
+        }
+
+    },
+    { passive: false }
+);
+
+
+/* =========================
+   KEYBOARD
+========================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (!running) return;
+
+
+        const gameWidth =
+            game.clientWidth;
+
+
+        const step =
+            (55 / gameWidth) * 100;
+
+
+        if (event.key === "ArrowLeft") {
+
+            basketPosition -= step;
+
+        }
+
+
+        if (event.key === "ArrowRight") {
+
+            basketPosition += step;
+
+        }
+
+
+        basketPosition =
+            Math.max(
+                7,
+                Math.min(
+                    93,
+                    basketPosition
+                )
+            );
+
+
+        basket.style.left =
+            basketPosition + "%";
+
+    }
+);
+
+
+/* =========================
+   CREATE DROP
+========================= */
+
+function createDrop() {
+
+    if (!running) return;
+
+
+    const drop =
+        document.createElement("div");
+
+
+    /*
+       About 25% of drops
+       are hazards.
+    */
+
+    const hazard =
+        Math.random() < 0.25;
+
+
+  if (hazard) {
+
+    drop.className =
+        "hazard-drop";
+
+    drop.innerHTML =
+        '<span class="hazard-water">💧</span><span class="hazard-symbol">☢</span>';
+
+    drop.dataset.hazard =
+        "true";
+
+} else {
+
+        drop.className =
+            "water-drop";
+
+        drop.textContent =
+            "💧";
+
+        drop.dataset.hazard =
+            "false";
+
+    }
+
+
+    drop.style.left =
+        (5 + Math.random() * 90) + "%";
+
+
+    drop.style.top =
+        "-65px";
+
+
+    game.appendChild(drop);
+
+
+    drops.push({
+
+        element: drop,
+
+        y: -65,
+
+        speed:
+            2.5 +
+            Math.random() * 2.2
+
+    });
+
+}
+
+
+/* =========================
+   END GAME
+========================= */
+
+function endGame(won) {
+
+    running = false;
+
+
+    clearInterval(timer);
+
+    clearInterval(spawnTimer);
+
+
+    drops.forEach(drop => {
+
+        drop.element.remove();
+
+    });
+
+
+    drops = [];
+
+
+    let title;
+
+    let description;
+
+
+    if (won) {
+
+        title =
+            "🎉<br>YOU DID IT!";
+
+        description =
+            "You caught 100 points worth of clean water droplets!";
+
+    } else {
+
+        title =
+            "🌊<br>GAME OVER";
+
+        description =
+            "Time's up! You caught " +
+            score +
+            " points.";
+
+    }
+
+
+    overlay.innerHTML = `
+
+        <div class="card">
+
+            <div class="card-logo">
+                CHARITY: WATER
+            </div>
+
+
+            <h1>
+
+                ${title}
+
+            </h1>
+
+
+            <p>
+
+                ${description}
+
+            </p>
+
+
+            <div
+                style="
+                    font-size:25px;
+                    font-weight:900;
+                    margin:18px 0;
+                "
+            >
+
+                ⭐ ${score} POINTS
+
+            </div>
+
+
+            <button
+                class="button"
+                id="againButton">
+
+                PLAY AGAIN
+
+            </button>
+
+
+            <div class="subtext">
+
+                Every drop counts.
+
+            </div>
+
+        </div>
+    `;
+
+
+    overlay.style.display =
+        "flex";
+
+
+    document
+        .getElementById("againButton")
+        .onclick =
+        startGame;
+
+}
+
+
+/* =========================
+   START GAME
+========================= */
+
+function startGame() {
+
+    score = 0;
+
+    lives = 3;
+
+    time = 30;
+
+    running = true;
+
+
+    basketPosition = 50;
+
+    basket.style.left =
+        "50%";
+
+
+    overlay.style.display =
+        "none";
+
+
+    updateHUD();
+
+
+    clearInterval(timer);
+
+    clearInterval(spawnTimer);
+
+
+    /*
+       Countdown timer
+    */
+
+    timer = setInterval(() => {
+
+        if (!running) return;
+
+
+        time--;
+
+        updateHUD();
+
+
+        if (time <= 0) {
+
+            endGame(false);
+
+        }
+
+    }, 1000);
+
+
+    /*
+       Create new droplets
+       every 650 milliseconds.
+    */
+
+    spawnTimer =
+        setInterval(
+            createDrop,
+            650
+        );
+
+}
+
+
+/* =========================
+   MAIN GAME LOOP - OPTIMIZED
+========================= */
+
+function gameLoop() {
+
+    if (running) {
+
+        const gameWidth =
+            game.clientWidth;
+
+        const gameHeight =
+            game.clientHeight;
+
+
+        /*
+           Calculate basket position
+           without getBoundingClientRect()
+           every frame.
+        */
+
+        const basketWidth =
+            basket.offsetWidth;
+
+        const basketLeft =
+            (basketPosition / 100) *
+            gameWidth -
+            basketWidth / 2;
+
+        const basketRight =
+            basketLeft +
+            basketWidth;
+
+
+        /*
+           Loop backwards so drops can
+           safely be removed.
+        */
+
+        for (
+            let i = drops.length - 1;
+            i >= 0;
+            i--
+        ) {
+
+            const drop =
+                drops[i];
+
+
+            drop.y +=
+                drop.speed;
+
+
+            /*
+               Smooth movement using transform.
+            */
+
+            drop.element.style.transform =
+                `translateY(${drop.y}px)`;
+
+
+            /*
+               Get horizontal position.
+            */
+
+            const dropLeft =
+                (
+                    parseFloat(
+                        drop.element.style.left
+                    ) / 100
+                ) * gameWidth;
+
+
+            const dropWidth =
+                drop.element.offsetWidth;
+
+
+            const dropRight =
+                dropLeft +
+                dropWidth;
+
+
+            const dropHeight =
+                drop.element.offsetHeight;
+
+
+            const dropTop =
+                drop.y;
+
+
+            const dropBottom =
+                dropTop +
+                dropHeight;
+
+
+            /*
+               BASKET COLLISION
+            */
+
+            const basketTop =
+                gameHeight - 73;
+
+
+            const basketBottom =
+                basketTop +
+                basket.offsetHeight;
+
+
+            if (
+                dropLeft < basketRight &&
+                dropRight > basketLeft &&
+                dropTop < basketBottom &&
+                dropBottom > basketTop
+            ) {
+
+                /*
+                   HAZARD
+                */
+
+                if (
+                    drop.element.dataset.hazard
+                    === "true"
+                ) {
+
+                    lives--;
+
+                    updateHUD();
+
+
+                    showMessage(
+                        "☢ Hazard! Avoid polluted water!"
+                    );
+
+
+                    if (lives <= 0) {
+
+                        endGame(false);
+
+                        return;
+
+                    }
+
+                }
+
+
+                /*
+                   CLEAN WATER
+                */
+
+                else {
+
+                    score += 10;
+
+                    updateHUD();
+
+
+                    showMessage(
+                        "💧 Clean water collected!"
+                    );
+
+
+                    if (score >= 100) {
+
+                        endGame(true);
+
+                        return;
+
+                    }
+
+                }
+
+
+                drop.element.remove();
+
+                drops.splice(
+                    i,
+                    1
+                );
+
+                continue;
+
+            }
+
+
+            /*
+               DROP HIT THE GROUND
+            */
+
+            if (
+                drop.y >
+                gameHeight + 70
+            ) {
+
+                drop.element.remove();
+
+                drops.splice(
+                    i,
+                    1
+                );
+
+            }
+
+        }
+
+    }
+
+
+    requestAnimationFrame(
+        gameLoop
+    );
+
+}
+
+
+/* =========================
+   START BUTTON
+========================= */
+
+startButton.onclick =
+    startGame;
+
+
+/* =========================
+   INITIAL HUD
+========================= */
+
+updateHUD();
+
+
+/* =========================
+   START LOOP
+========================= */
+
+gameLoop();
+
+</script>
+
+</body>
+</html>
