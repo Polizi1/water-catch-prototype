@@ -1,0 +1,8 @@
+{
+  "name": "Water Catch | charity: water",
+  "description": "Catch clean water droplets, avoid polluted droplets, and help bring clean water to communities around the world.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

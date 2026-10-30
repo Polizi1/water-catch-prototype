@@ -1,0 +1,922 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --yellow: #FFC907;
+  --gold: #B88F00;
+  --navy: #003366;
+  --blue: #77A8BB;
+  --dark-blue: #5D91A5;
+  --cream: #FFF7E1;
+  --black: #1A1A1A;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--cream);
+  color: var(--navy);
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.page {
+  width: min(1250px, 96%);
+  margin: 18px auto 35px;
+}
+
+.header {
+  background: white;
+  border-radius: 20px 20px 0 0;
+  padding: 22px 28px 17px;
+  box-shadow: 0 5px 18px #12345b12;
+  position: relative;
+  z-index: 10;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  min-width: 0;
+}
+
+.water-catch-wordmark {
+  color: var(--black);
+  font-size: clamp(19px, 2.5vw, 34px);
+  font-weight: 300;
+  letter-spacing: 5px;
+  white-space: nowrap;
+}
+
+.brand-divider {
+  color: var(--black);
+  font-size: 38px;
+  font-weight: 200;
+  line-height: 1;
+}
+
+.charity-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.charity-logo img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+}
+
+.charity-logo .charity-name {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  color: #222;
+}
+
+.charity-wordmark {
+  color: var(--black);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(17px, 2.2vw, 29px);
+  font-weight: 400;
+  letter-spacing: 3px;
+  white-space: nowrap;
+}
+
+.stats {
+  display: flex;
+  gap: 12px;
+}
+
+.stat {
+  min-width: 100px;
+  padding: 10px 13px;
+  text-align: center;
+  background: var(--cream);
+  border-radius: 0 0 19px 19px;
+}
+
+.sound-toggle-btn {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  color: inherit;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+  user-select: none;
+}
+
+.sound-toggle-btn:hover {
+  background: #f7ebc8;
+}
+
+.sound-toggle-btn:active {
+  transform: translateY(2px);
+}
+
+.stat-label {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.stat-value {
+  margin-top: 4px;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.heart, .empty-heart {
+  font-family: "Segoe UI Emoji", sans-serif;
+  font-size: 19px;
+  letter-spacing: 1px;
+}
+
+.empty-heart {
+  color: #D9D9D9;
+}
+
+.progress-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 18px;
+}
+
+.progress-title {
+  font-size: 13px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.progress-container {
+  flex: 1;
+  min-width: 0;
+  height: 14px;
+  background: var(--cream);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 100%;
+  background: var(--yellow);
+  border-radius: 20px;
+  transition: width .2s ease;
+}
+
+.progress-number {
+  min-width: 55px;
+  text-align: right;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+/* Game scenery */
+.game {
+  height: 620px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0 0 20px 20px;
+  background: linear-gradient(
+    to bottom,
+    #77A8BB 0%,
+    #A9CCD6 36%,
+    #FFF7E1 49%,
+    #77A8BB 50%,
+    #5D91A5 100%
+  );
+  box-shadow: 0 7px 22px #12345b20;
+  touch-action: pan-y;
+  cursor: crosshair;
+}
+
+.cloud {
+  position: absolute;
+  background: white;
+  border-radius: 100px;
+  opacity: .8;
+  pointer-events: none;
+}
+
+.cloud::before, .cloud::after {
+  content: "";
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+}
+
+.cloud::before {
+  width: 65%;
+  height: 130%;
+  left: 15%;
+  top: -65%;
+}
+
+.cloud::after {
+  width: 45%;
+  height: 100%;
+  right: 8%;
+  top: -45%;
+}
+
+.cloud-one {
+  width: 180px;
+  height: 45px;
+  top: 80px;
+  left: -20px;
+}
+
+.cloud-two {
+  width: 145px;
+  height: 36px;
+  top: 155px;
+  right: 25px;
+}
+
+.cloud-three {
+  width: 120px;
+  height: 30px;
+  top: 55px;
+  right: 28%;
+}
+
+.mountains {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 145px;
+  height: 270px;
+  pointer-events: none;
+}
+
+.mountain {
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-left: 190px solid transparent;
+  border-right: 190px solid transparent;
+  border-bottom: 220px solid #8BB7C5;
+}
+
+.mountain-one {
+  left: -80px;
+}
+
+.mountain-two {
+  left: 230px;
+  transform: scale(.85);
+}
+
+.mountain-three {
+  right: 100px;
+  transform: scale(1.05);
+}
+
+.mountain-four {
+  right: -160px;
+  transform: scale(.8);
+}
+
+.front-mountain {
+  position: absolute;
+  bottom: -5px;
+  width: 0;
+  height: 0;
+  border-left: 230px solid transparent;
+  border-right: 230px solid transparent;
+  border-bottom: 175px solid var(--dark-blue);
+}
+
+.front-one {
+  left: 40px;
+}
+
+.front-two {
+  left: 430px;
+  transform: scale(.75);
+}
+
+.front-three {
+  right: -20px;
+  transform: scale(.9);
+}
+
+.land {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 95px;
+  height: 135px;
+  background: #5D9B72;
+  clip-path: polygon(
+    0 65%, 10% 42%, 20% 55%, 31% 30%, 43% 55%,
+    55% 35%, 67% 57%, 79% 32%, 90% 54%, 100% 38%,
+    100% 100%, 0 100%
+  );
+  pointer-events: none;
+}
+
+.shore {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 70px;
+  height: 75px;
+  background: #5D91A5;
+  border-radius: 50% 50% 0 0;
+  pointer-events: none;
+}
+
+.water {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 115px;
+  background: linear-gradient(to bottom, #77A8BB, #5D91A5);
+  pointer-events: none;
+}
+
+.ripple {
+  position: absolute;
+  border: 2px solid #ffffff59;
+  border-radius: 50%;
+  height: 22px;
+  pointer-events: none;
+}
+
+.ripple-one {
+  width: 180px;
+  bottom: 82px;
+  left: 20%;
+}
+
+.ripple-two {
+  width: 230px;
+  bottom: 91px;
+  right: 15%;
+}
+
+.ripple-three {
+  width: 120px;
+  bottom: 75px;
+  left: 53%;
+}
+
+/* Falling drops */
+.water-drop, .hazard-drop {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 43px;
+  line-height: 1;
+  z-index: 5;
+  user-select: none;
+  pointer-events: none;
+}
+
+.hazard-water {
+  filter: grayscale(1) brightness(.55);
+  font-size: 43px;
+}
+
+.hazard-symbol {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 23px;
+  color: var(--yellow);
+}
+
+/* Basket */
+.basket {
+  position: absolute;
+  width: 190px;
+  height: 100px;
+  bottom: 73px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--yellow);
+  border: 5px solid var(--gold);
+  border-radius: 12px 12px 32px 32px;
+  box-shadow: 0 8px 12px #6b560040;
+  z-index: 7;
+  transition: none !important;
+  will-change: left;
+  pointer-events: none;
+}
+
+.basket::before {
+  content: "";
+  position: absolute;
+  left: -13px;
+  right: -13px;
+  top: -12px;
+  height: 26px;
+  background: var(--yellow);
+  border: 5px solid var(--gold);
+  border-radius: 20px;
+}
+
+.basket-label {
+  position: absolute;
+  left: 0;
+  top: 29px;
+  width: 100%;
+  text-align: center;
+  color: var(--navy);
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.basket-handle {
+  position: absolute;
+  left: 57px;
+  top: -22px;
+  width: 75px;
+  height: 35px;
+  border: 7px solid var(--gold);
+  border-bottom: 0;
+  border-radius: 40px 40px 0 0;
+}
+
+.instructions {
+  position: absolute;
+  left: 18px;
+  bottom: 17px;
+  z-index: 8;
+  color: white;
+  background: #12345bb8;
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.message {
+  position: absolute;
+  z-index: 9;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: 900;
+  text-align: center;
+  max-width: 90%;
+  box-shadow: 0 5px 15px #12345b26;
+  opacity: 0;
+  transition: opacity .2s;
+  pointer-events: none;
+}
+
+.message.show {
+  opacity: 1;
+}
+
+/* Start and end overlay */
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: #fffffff0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+}
+
+.card {
+  width: min(520px, 100%);
+  background: white;
+  border-radius: 25px;
+  padding: 38px;
+  text-align: center;
+  box-shadow: 0 18px 50px #12345b2e;
+}
+
+.card-logo {
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+}
+
+.card h1 {
+  font-size: 40px;
+  line-height: 1.05;
+  margin-bottom: 16px;
+}
+
+.card h1 span {
+  font-size: 49px;
+}
+
+.card p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--navy);
+  margin-bottom: 23px;
+}
+
+.button {
+  border: none;
+  background: var(--yellow);
+  color: var(--navy);
+  font-size: 17px;
+  font-weight: 900;
+  padding: 15px 43px;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 5px 0 var(--gold);
+}
+
+.button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--gold);
+}
+
+.subtext {
+  margin-top: 17px;
+  font-size: 12px;
+  color: var(--navy);
+}
+
+/* Centered, larger reset button */
+.reset-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 24px 16px 8px;
+}
+
+.reset-button {
+  display: block;
+  margin: 0 auto;
+  min-width: 230px;
+  min-height: 60px;
+  padding: 17px 38px;
+  border: none;
+  border-radius: 35px;
+  background: var(--yellow);
+  color: var(--navy);
+  font-size: 19px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 5px 0 var(--gold);
+}
+
+.reset-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 3px 0 var(--gold);
+}
+
+/* Info cards */
+.info-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.info-card {
+  background: white;
+  border-radius: 18px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 5px 18px #12345b12;
+}
+
+.info-card h3 {
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.info-card p {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Tablet and phone layout */
+@media (max-width: 800px) {
+  .topbar {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+  }
+  .brand {
+    width: 100%;
+    justify-content: center;
+    gap: 12px;
+  }
+  .stats {
+    width: 100%;
+    justify-content: center;
+    gap: 8px;
+  }
+  .stat {
+    flex: 1;
+    min-width: 0;
+  }
+  .info-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .page {
+    width: 100%;
+    margin: 0;
+  }
+  .header {
+    padding: 14px 10px;
+    border-radius: 0;
+  }
+  .topbar {
+    gap: 13px;
+  }
+
+  .brand {
+    gap: 7px;
+  }
+  .water-catch-wordmark {
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+  .brand-divider {
+    font-size: 25px;
+  }
+  .charity-wordmark {
+    font-size: 14px;
+    letter-spacing: .8px;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+  }
+  .stat {
+    padding: 9px 3px;
+    border-radius: 12px;
+  }
+  .stat-label {
+    font-size: 9px;
+    letter-spacing: .4px;
+  }
+  .stat-value {
+    font-size: 16px;
+  }
+  .heart, .empty-heart {
+    font-size: 15px;
+    letter-spacing: 0;
+  }
+
+  .progress-row {
+    gap: 8px;
+    margin-top: 13px;
+  }
+  .progress-title {
+    display: none;
+  }
+  .progress-container {
+    height: 12px;
+  }
+  .progress-number {
+    min-width: 48px;
+    font-size: 12px;
+  }
+
+  .game {
+    height: min(65dvh, 520px);
+    min-height: 370px;
+    border-radius: 0;
+  }
+
+  .cloud-one {
+    transform: scale(.7);
+    transform-origin: left top;
+  }
+  .cloud-two {
+    right: -20px;
+    transform: scale(.7);
+    transform-origin: right top;
+  }
+  .cloud-three {
+    right: 20%;
+    transform: scale(.65);
+  }
+
+  .mountains {
+    bottom: 105px;
+    height: 190px;
+  }
+  .mountain {
+    border-left-width: 120px;
+    border-right-width: 120px;
+    border-bottom-width: 145px;
+  }
+  .mountain-two {
+    left: 25%;
+  }
+  .mountain-three {
+    right: 4%;
+  }
+  .mountain-four {
+    right: -100px;
+  }
+
+  .front-mountain {
+    border-left-width: 145px;
+    border-right-width: 145px;
+    border-bottom-width: 115px;
+  }
+  .front-one {
+    left: -35px;
+  }
+  .front-two {
+    left: 32%;
+  }
+  .front-three {
+    right: -95px;
+  }
+
+  .land {
+    bottom: 75px;
+    height: 95px;
+  }
+  .shore {
+    bottom: 55px;
+    height: 55px;
+  }
+  .water {
+    height: 85px;
+  }
+  .ripple-one {
+    width: 95px;
+    left: 8%;
+  }
+  .ripple-two {
+    width: 115px;
+    right: 5%;
+  }
+  .ripple-three {
+    width: 70px;
+  }
+
+  .basket {
+    width: 108px;
+    height: 68px;
+    bottom: 58px;
+    border-width: 4px;
+    border-radius: 10px 10px 24px 24px;
+  }
+  .basket::before {
+    left: -8px;
+    right: -8px;
+    top: -9px;
+    height: 18px;
+    border-width: 4px;
+  }
+  .basket-label {
+    top: 22px;
+    font-size: 14px;
+  }
+  .basket-handle {
+    left: 29px;
+    top: -19px;
+    width: 42px;
+    height: 27px;
+    border-width: 5px;
+    border-bottom: 0;
+  }
+
+  .water-drop, .hazard-drop {
+    width: 38px;
+    height: 38px;
+    font-size: 33px;
+  }
+  .hazard-water {
+    font-size: 33px;
+  }
+  .hazard-symbol {
+    font-size: 18px;
+  }
+
+  .instructions {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    padding: 9px 8px;
+    font-size: 10px;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  .message {
+    top: 10px;
+    padding: 9px 12px;
+    font-size: 12px;
+  }
+  .overlay {
+    padding: 14px;
+  }
+  .card {
+    padding: 24px 18px;
+    border-radius: 20px;
+  }
+  .card h1 {
+    font-size: 30px;
+  }
+  .card h1 span {
+    font-size: 36px;
+  }
+  .card p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .button {
+    width: 100%;
+    max-width: 280px;
+    padding: 15px 18px;
+    font-size: 16px;
+  }
+
+  .reset-container {
+    padding: 20px 12px 8px;
+  }
+  .reset-button {
+    width: 100%;
+    max-width: 320px;
+    min-height: 58px;
+    font-size: 18px;
+  }
+
+  .info-section {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 12px;
+    margin-top: 0;
+  }
+  .info-card {
+    padding: 18px 16px;
+  }
+}
+
+@media (max-width: 360px) {
+  .water-catch-wordmark {
+    font-size: 12px;
+    letter-spacing: .7px;
+  }
+  .charity-wordmark {
+    font-size: 12px;
+    letter-spacing: .3px;
+  }
+  .brand {
+    gap: 5px;
+  }
+}
+
+/* Celebration confetti — charity: water colors only */
+.confetti-piece {
+  position: absolute;
+  top: -15px;
+  width: 9px;
+  height: 14px;
+  z-index: 30;
+  pointer-events: none;
+  animation: confetti-fall 3s ease-in forwards;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(700px) rotate(720deg);
+    opacity: 0;
+  }
+}
